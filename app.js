@@ -40,7 +40,21 @@ var UIController =(function(){
 
 // Global app controller
 var controller =(function(bdgtCtrl,UICntrl){
-	var DOM = UICntrl.getDOMstrings();
+	
+	var setupEventListeners = function(){
+		
+		var DOM = UICntrl.getDOMstrings();
+		document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+	
+		document.addEventListener('keypress', function(event){
+		if(event.keyCode==13	 || event.which==13){
+			ctrlAddItem();
+		}
+		
+	});
+};
+		
+	
 	var ctrlAddItem = function(){
 		//1. get the input value from field
 		var input = UICntrl.getInput();
@@ -52,13 +66,15 @@ var controller =(function(bdgtCtrl,UICntrl){
 		
 		console.log('It is also working fine');
 		
-	}
-	document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+	};
 	
-	document.addEventListener('keypress', function(event){
-		if(event.keyCode==13 || event.which==13){
-			ctrlAddItem();
-		}
-		
-	});
+	return{
+		init: function()
+{
+	console.log('workin working')
+	setupEventListeners();
+}	}
+
 })(budgetController,UIController);
+
+controller.init();
